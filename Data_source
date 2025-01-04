@@ -1,0 +1,19 @@
+provider "aws" {
+  region = "us-east-1"  # or your specific region
+}
+
+data "aws_vpc" "Data-source" {
+  id = "vpc-09a86f1d092ef1f5e"  # The ID of your existing VPC
+}
+
+resource "aws_internet_gateway" "Data-source-igw" {
+  vpc_id = data.aws_vpc.Data-source.id
+
+  tags = {
+    Name = "Data-source-igw"
+  }
+}
+
+
+
+#in this once you create VPC in AWS it was not tracked by terraform if we do directly in AWS so if want to attach a IGW to all ready created VPC using terraform we can go for DATA RESOURCES in that we can mention all details.
